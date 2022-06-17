@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoItX3Lib;
+using AutoIt;
+
 
 
 namespace estudoSelenium
@@ -32,15 +34,25 @@ namespace estudoSelenium
 
             var pathtxt = "C:\\Users\\myres\\OneDrive\\Área de Trabalho\\Estudo automação.txt";
 
-          
+            AutoItX.Run("notepad.exe", "");
+
             for (int i = 0; i < allresults.Count; i++)
             {
-               Console.WriteLine(allresults[i].Text);
+                if (i == 0)
+                {
+                    AutoItX.WinWaitActive("Sem título - Bloco de notas");
+                    AutoItX.Send(allresults[i].Text + "\n");
+                }
+                else
+                {
+                    AutoItX.WinWaitActive("*Sem título - Bloco de notas");
+                    AutoItX.Send(allresults[i].Text + "\n");
+                }
 
-               File.AppendAllText(@pathtxt,i + ") " + allresults[i].Text + "\n");
+                
 
             }
-                               
+
         }
 
     }
